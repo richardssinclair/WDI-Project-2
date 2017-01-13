@@ -1,5 +1,5 @@
-const App = App || {};
-const google = google || {};
+const App    = App || {};
+const google = google;
 
 App.init = function() {
   this.apiUrl = 'http://localhost:3000/api';
@@ -9,6 +9,7 @@ App.init = function() {
   $('.logout').on('click', this.logout.bind(this));
   $('.home').on('click', this.homepage.bind(this));
   this.$main.on('submit', 'form', this.handleForm);
+
   if (this.getToken()) {
     this.loggedInState();
   } else {
@@ -16,42 +17,48 @@ App.init = function() {
   }
 };
 
-App.getCurrentLocation = function(){
-  navigator.geolocation.getCurrentPosition( function (position) {
+App.getCurrentLocation = function() {
+  navigator.geolocation.getCurrentPosition(position => {
     App.currentLocation = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
     };
-    var icon = {
-      url: 'http://lambdoyles.com/wp-content/uploads/2015/09/great-location-icon.png',
+
+    const icon = {
+      url: 'images/beer.png',
       scaledSize: new google.maps.Size(40, 65),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(0, 0)
     };
-    const marker = new google.maps.Marker({
-      position:   App.currentLocation,
-      map:        App.map,
-      animation:  google.maps.Animation.DROP,
+
+    new google.maps.Marker({
+      position: App.currentLocation,
+      map: App.map,
+      animation: google.maps.Animation.DROP,
       icon
     });
-    this.addInfoWindowForPub(pub, marker);
-  });
 
-  App.addInfoWindowForPub = function(pub, marker) {
-    google.maps.event.addListener(marker, 'click', () => {
-      if (typeof this.infowindow !== 'undefined')
-        this.infowindow.close();
-      this.infowindow = new google.maps.Infowindow({
-        content: `
-        <div class="infowindow">
+    App.map.panTo(App.currentLocation);
+
+  });
+};
+
+App.addInfoWindowForPub = function(pub, marker) {
+  google.maps.event.addListener(marker, 'click', () => {
+    if (typeof this.infowindow !== 'undefined') this.infowindow.close();
+    this.infowindow = new google.maps.InfoWindow({
+      content: `
+      <div class="infowindow">
         <img class="pubImage" src="${ pub.image }">
         <h3> ${pub.name } </h3>
         <p> ${ pub.description } </p>
-        <p> ${ pub.location } </p>`
-
-      });
+        <p> ${ pub.location } </p>
+      </div>`
     });
-  };
+
+    this.infowindow.open(this.map, marker);
+    this.map.setCenter(marker.getPosition());
+  });
 };
 
 App.addPub = function(){
@@ -74,6 +81,7 @@ App.createMap = function(){
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   App.map = new google.maps.Map(canvas, mapOptions);
+  this.getCurrentLocation();
 };
 
 App.loggedInState = function(){
@@ -112,6 +120,7 @@ App.register = function(e){
     </form>
   `);
 };
+
 App.login = function(e) {
   e.preventDefault();
   this.$main.html(`
@@ -127,6 +136,7 @@ App.login = function(e) {
     </form>
   `);
 };
+
 App.logout = function(e){
   e.preventDefault();
   this.removeToken();
@@ -138,15 +148,19 @@ App.homepage = function(){
 };
 
 App.handleForm = function(e){
+  console.log('running');
   e.preventDefault();
   const url    = `${App.apiUrl}${$(this).attr('action')}`;
   const method = $(this).attr('method');
   const data   = $(this).serialize();
+
+  console.log(url, method, data);
   return App.ajaxRequest(url, method, data, data => {
     if (data.token) App.setToken(data.token);
     App.loggedInState();
   });
 };
+
 App.ajaxRequest = function(url, method, data, callback){
   return $.ajax({
     url,
@@ -159,16 +173,21 @@ App.ajaxRequest = function(url, method, data, callback){
     console.log(data);
   });
 };
+
 App.setRequestHeader = function(xhr) {
   return xhr.setRequestHeader('Authorization', `Bearer ${this.getToken()}`);
 };
+
 App.setToken = function(token){
   return window.localStorage.setItem('token', token);
 };
+
 App.getToken = function(){
   return window.localStorage.getItem('token');
 };
+
 App.removeToken = function(){
   return window.localStorage.clear();
 };
+
 $(App.init.bind(App));
