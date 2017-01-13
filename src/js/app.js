@@ -15,6 +15,17 @@ App.init = function() {
     this.loggedOutState();
   }
 };
+
+App.createMap = function(){
+  const canvas = document.getElementById('canvas');
+  const mapOptions = {
+    zoom: 14,
+    center: new google.maps.LatLng(51.506178, -0.088369),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  App.map = new google.maps.Map(canvas, mapOptions);
+};
+
 App.loggedInState = function(){
   $('.loggedIn').show();
   $('.loggedOut').hide();
@@ -24,28 +35,12 @@ App.loggedInState = function(){
   this.createMap();
 };
 
-App.createMap = function() {
-  const canvas = document.getElementById('map-canvas');
-
-  const mapOptions = {
-    zoom: 12,
-    center: new google.maps.LatLng(51.506178,-0.088369),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-
-  this.map = new google.maps.Map(canvas, mapOptions);
-  this.getCameras();
-};
-
-$(googleMap.mapSetup.bind(googleMap));
-
-
-
 App.loggedOutState = function(){
   $('.loggedIn').hide();
   $('.loggedOut').show();
   this.register();
 };
+
 App.register = function(e){
   if (e) e.preventDefault();
   this.$main.html(`
