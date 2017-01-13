@@ -16,6 +16,56 @@ App.init = function() {
   }
 };
 
+App.getCurrentLocation = function(){
+  navigator.geolocation.getCurrentPosition( function (position) {
+    App.currentLocation = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+    var icon = {
+      url: 'http://lambdoyles.com/wp-content/uploads/2015/09/great-location-icon.png',
+      scaledSize: new google.maps.Size(40, 65),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(0, 0)
+    };
+    const marker = new google.maps.Marker({
+      position:   App.currentLocation,
+      map:        App.map,
+      animation:  google.maps.Animation.DROP,
+      icon
+    });
+    this.addInfoWindowForPub(pub, marker);
+  });
+
+  App.addInfoWindowForPub = function(pub, marker) {
+    google.maps.event.addListener(marker, 'click', () => {
+      if (typeof this.infowindow !== 'undefined')
+        this.infowindow.close();
+      this.infowindow = new google.maps.Infowindow({
+        content: `
+        <div class="infowindow">
+        <img class="pubImage" src="${ pub.image }">
+        <h3> ${pub.name } </h3>
+        <p> ${ pub.description } </p>
+        <p> ${ pub.location } </p>`
+
+      });
+    });
+  };
+};
+
+App.addPub = function(){
+  event.preventDefault();
+  $.ajax({
+    method: 'POST',
+    data: $(this).serialize()
+  }).done(data => {
+    console.log(data.pub);
+    App.createMarkerForPub(null, data.pub);
+    $('form').reset().hide();
+  });
+};
+
 App.createMap = function(){
   const canvas = document.getElementById('canvas');
   const mapOptions = {
