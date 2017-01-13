@@ -41,6 +41,7 @@ App.getCurrentLocation = function() {
     App.map.panTo(App.currentLocation);
 
   });
+  App.ajaxRequest('http://localhost:3000/api/pubs', 'GET', null, App.createMarkerForPub(null, data.pub););
 };
 
 App.addInfoWindowForPub = function(pub, marker) {
