@@ -37,11 +37,19 @@ App.getCurrentLocation = function() {
       animation: google.maps.Animation.DROP,
       icon
     });
+//added this
+    new google.maps.Marker({
+      position: App.dataLocation,
+      map: App.map,
+      anchor: google.maps.Animation.BOUNCE.
+      icon
+    });
+    //added end
 
     App.map.panTo(App.currentLocation);
 
   });
-  App.ajaxRequest('http://localhost:3000/api/pubs', 'GET', null, App.createMarkerForPub(null, data.pub););
+  App.ajaxRequest('http://localhost:3000/api/pubs', 'GET', null, App.createMarkerForPub(null, data.pub));
 };
 
 App.addInfoWindowForPub = function(pub, marker) {
@@ -61,6 +69,34 @@ App.addInfoWindowForPub = function(pub, marker) {
     this.map.setCenter(marker.getPosition());
   });
 };
+
+//added this bellow
+
+App.createMarkerForPub = function(pub) {
+  const latlng = new google.maps.LatLng(pub.lat, pub.lng);
+  const marker = new google.maps.Marker({
+    position: latlng,
+    map: this.map,
+    icon: '/images/beer.png',
+    animation: google.maps.Animation.DROP
+  });
+
+  this.addInfoWindowForPub(pub, marker);
+};
+
+App.loopThroughPubs = function(data) {
+  $.each(data.pubs, (index, pub) => {
+    setTimeout(() => {
+      App.createMarkerForPub(pub);
+    }, index * 50);
+  });
+};
+
+App.getPubs = function() {
+  $.get('http://localhost:3000/pubs').done(this.loopThroughPubs);
+};
+
+//added this end
 
 App.addPub = function(){
   event.preventDefault();
