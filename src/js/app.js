@@ -1,6 +1,7 @@
 const App    = App || {};
 const google = google;
 
+//makes the app, runs the functions in the authenticatons form
 App.init = function() {
   this.apiUrl = 'http://localhost:3000/api';
   this.$main  = $('main');
@@ -17,41 +18,7 @@ App.init = function() {
   }
 };
 
-App.getCurrentLocation = function() {
-  navigator.geolocation.getCurrentPosition(position => {
-    App.currentLocation = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-
-    const icon = {
-      url: 'images/beer.png',
-      scaledSize: new google.maps.Size(40, 65),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(0, 0)
-    };
-
-    new google.maps.Marker({
-      position: App.currentLocation,
-      map: App.map,
-      animation: google.maps.Animation.DROP,
-      icon
-    });
-//added this
-    new google.maps.Marker({
-      position: App.dataLocation,
-      map: App.map,
-      anchor: google.maps.Animation.BOUNCE.
-      icon
-    });
-    //added end
-
-    App.map.panTo(App.currentLocation);
-
-  });
-  App.ajaxRequest('http://localhost:3000/api/pubs', 'GET', null, App.createMarkerForPub(null, data.pub));
-};
-
+//info window for markers displays infotmation image,name,discription,location
 App.addInfoWindowForPub = function(pub, marker) {
   google.maps.event.addListener(marker, 'click', () => {
     if (typeof this.infowindow !== 'undefined') this.infowindow.close();
@@ -70,8 +37,34 @@ App.addInfoWindowForPub = function(pub, marker) {
   });
 };
 
-//added this bellow
+App.getCurrentLocation = function() {
+  navigator.geolocation.getCurrentPosition(position => {
+    App.currentLocation = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
 
+    const icon = {
+      url: 'images/dot.png',
+      scaledSize: new google.maps.Size(65, 65),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(0, 0)
+    };
+
+    new google.maps.Marker({
+      position: App.currentLocation,
+      map: App.map,
+      animation: google.maps.Animation.DROP,
+      icon
+    });
+    App.map.panTo(App.currentLocation);
+  });
+
+  //whats going on here?? calling stuff?
+  App.ajaxRequest('http://localhost:3000/api/pubcrawl', 'GET');
+};
+
+//// creating the markers for pubs
 App.createMarkerForPub = function(pub) {
   const latlng = new google.maps.LatLng(pub.lat, pub.lng);
   const marker = new google.maps.Marker({
@@ -80,24 +73,11 @@ App.createMarkerForPub = function(pub) {
     icon: '/images/beer.png',
     animation: google.maps.Animation.DROP
   });
-
+    
   this.addInfoWindowForPub(pub, marker);
 };
 
-App.loopThroughPubs = function(data) {
-  $.each(data.pubs, (index, pub) => {
-    setTimeout(() => {
-      App.createMarkerForPub(pub);
-    }, index * 50);
-  });
-};
-
-App.getPubs = function() {
-  $.get('http://localhost:3000/pubs').done(this.loopThroughPubs);
-};
-
-//added this end
-
+//adding a pub ajax request.. a little confused..i dont think this is working..
 App.addPub = function(){
   event.preventDefault();
   $.ajax({
@@ -109,7 +89,8 @@ App.addPub = function(){
     $('form').reset().hide();
   });
 };
-
+//creaiting a map with the id of canvas with map option settings
+////ITS FUCKING HERE!!!
 App.createMap = function(){
   const canvas = document.getElementById('canvas');
   const mapOptions = {
@@ -118,7 +99,8 @@ App.createMap = function(){
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   App.map = new google.maps.Map(canvas, mapOptions);
-  this.getCurrentLocation();
+  this.getCurrentLocation(),
+  this.createMarkerForPub(data.pub); // NOT SURE!
 };
 
 App.loggedInState = function(){
@@ -136,6 +118,7 @@ App.loggedOutState = function(){
   this.register();
 };
 
+//register finction, displays register inputs so users gan register
 App.register = function(e){
   if (e) e.preventDefault();
   this.$main.html(`
@@ -158,6 +141,7 @@ App.register = function(e){
   `);
 };
 
+//login function so users can log in to the map
 App.login = function(e) {
   e.preventDefault();
   this.$main.html(`
