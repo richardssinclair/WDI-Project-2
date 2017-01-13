@@ -16,9 +16,11 @@ const pubs = [{
   lng: '0.0762'
 }];
 
-pub1.save(function(err, pub) {
-  if (err) return console.log(err);
-  console.log('Pub saved! ', pub);
+pubs.forEach((pub) => {
+  Pub.create(pub, (err, pub) => {
+    if (err) return console.log(err);
+    return console.log(`${pub.name} was created`);
+  });
 });
 
 ///need to look up marker stufff
