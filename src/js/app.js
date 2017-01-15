@@ -61,9 +61,15 @@ App.getCurrentLocation = function() {
   });
 
   //whats going on here?? calling stuff?
-  App.ajaxRequest('http://localhost:3000/api/pubcrawl', 'GET');
+  App.ajaxRequest('http://localhost:3000/api/pubs', 'GET');
 };
 
+App.loopThroughPubs = function(pubs) {
+  console.log(pubs, 'UFKCFUCKFUCKFUCKFUCKFU');
+  $.each(pubs.pubs, (index, pub) => {
+    App.createMarkerForPub(pub);
+  });
+};
 //// creating the markers for pubs
 App.createMarkerForPub = function(pub) {
   const latlng = new google.maps.LatLng(pub.lat, pub.lng);
@@ -73,7 +79,7 @@ App.createMarkerForPub = function(pub) {
     icon: '/images/beer.png',
     animation: google.maps.Animation.DROP
   });
-    
+
   this.addInfoWindowForPub(pub, marker);
 };
 
@@ -89,6 +95,14 @@ App.addPub = function(){
     $('form').reset().hide();
   });
 };
+
+App.getPubs = function() {
+ App.ajaxRequest('http://localhost:3000/api/pubs', 'GET', null, App.loopThroughPubs);
+
+  // $.ajax({'http://localhost:3000/api/pubs'}).done(pubs => {
+  //   App.loopThroughPubs(pubs);
+  // });
+};
 //creaiting a map with the id of canvas with map option settings
 ////ITS FUCKING HERE!!!
 App.createMap = function(){
@@ -100,7 +114,7 @@ App.createMap = function(){
   };
   App.map = new google.maps.Map(canvas, mapOptions);
   this.getCurrentLocation(),
-  this.createMarkerForPub(data.pub); // NOT SURE!
+  App.getPubs();
 };
 
 App.loggedInState = function(){
