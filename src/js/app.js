@@ -73,11 +73,19 @@ App.loopThroughPubs = function(pubs) {
 //// creating the markers for pubs
 App.createMarkerForPub = function(pub) {
   const latlng = new google.maps.LatLng(pub.lat, pub.lng);
+
+  const beerIcon = {
+    url: 'images/beer.png',
+    scaledSize: new google.maps.Size(55, 65),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(0, 0)
+  };
+
   const marker = new google.maps.Marker({
     position: latlng,
     map: this.map,
-    icon: '/images/beer.png',
-    animation: google.maps.Animation.DROP
+    animation: google.maps.Animation.DROP,
+    icon: beerIcon
   });
 
   this.addInfoWindowForPub(pub, marker);
@@ -97,14 +105,13 @@ App.addPub = function(){
 };
 
 App.getPubs = function() {
- App.ajaxRequest('http://localhost:3000/api/pubs', 'GET', null, App.loopThroughPubs);
+  App.ajaxRequest('http://localhost:3000/api/pubs', 'GET', null, App.loopThroughPubs);
 
   // $.ajax({'http://localhost:3000/api/pubs'}).done(pubs => {
   //   App.loopThroughPubs(pubs);
   // });
 };
 //creaiting a map with the id of canvas with map option settings
-////ITS FUCKING HERE!!!
 App.createMap = function(){
   const canvas = document.getElementById('canvas');
   const mapOptions = {
