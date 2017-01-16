@@ -9,10 +9,18 @@ body {
 }
 
 .pubImage{
-  width: 200px;
+  width: 300px;
 }
 
 ////////
+
+.navbar {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
+}
+
+.navbar li { color: #000 }
 
 #right-panel {
        font-family: 'Roboto','sans-serif';

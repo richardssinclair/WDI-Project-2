@@ -46,7 +46,7 @@ App.getCurrentLocation = function() {
 
     const icon = {
       url: 'images/dot.png',
-      scaledSize: new google.maps.Size(65, 65),
+      scaledSize: new google.maps.Size(35, 35),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(0, 0)
       // GeoMarker: new GeolocationMarker(canvas)
@@ -67,7 +67,9 @@ App.getCurrentLocation = function() {
 
 App.loopThroughPubs = function(pubs) {
   $.each(pubs.pubs, (index, pub) => {
-    App.createMarkerForPub(pub);
+    setTimeout(() => {
+      App.createMarkerForPub(pub);
+    }, index * 200);
   });
 };
 //// creating the markers for pubs
@@ -76,7 +78,7 @@ App.createMarkerForPub = function(pub) {
 
   const beerIcon = {
     url: 'images/beer.png',
-    scaledSize: new google.maps.Size(28, 40),
+    scaledSize: new google.maps.Size(30, 45),
     origin: new google.maps.Point(0, 0),
     anchor: new google.maps.Point(0, 0)
   };
@@ -117,59 +119,115 @@ App.createMap = function(){
   const canvas = document.getElementById('canvas');
   const mapOptions = {
     zoom: 14,
-    center: new google.maps.LatLng(51.506178, -0.088369),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-//     /////////
-//     directionsService = new google.maps.DirectionsService,
-//     directionsDisplay = new google.maps.DirectionsRenderer
-//     //////////////////////
-//
-//     /////////////
-//
-//     document.getElementById('submit').addEventListener('click', function() {
-//       calculateAndDisplayRoute(directionsService, directionsDisplay);
-//     });
-//   }
-//
-//   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-//     var waypts = [];
-//     var checkboxArray = document.getElementById('waypoints');
-//     for (var i = 0; i < checkboxArray.length; i++) {
-//       if (checkboxArray.options[i].selected) {
-//         waypts.push({
-//           location: checkboxArray[i].value,
-//           stopover: true
-//         });
-//       }
-//     }
-//
-//     directionsService.route({
-//       origin: document.getElementById('start').value,
-//       destination: document.getElementById('end').value,
-//       waypoints: waypts,
-//       optimizeWaypoints: true,
-//       travelMode: 'WALKING'
-//     }, function(response, status) {
-//       if (status === 'OK') {
-//         directionsDisplay.setDirections(response);
-//         var route = response.routes[0];
-//         var summaryPanel = document.getElementById('directions-panel');
-//         summaryPanel.innerHTML = '';
-//         // For each route, display summary information.
-//         for (var i = 0; i < route.legs.length; i++) {
-//           var routeSegment = i + 1;
-//           summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-//               '</b><br>';
-//           summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-//           summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-//           summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-//         }
-//       } else {
-//         window.alert('Directions request failed due to ' + status);
-//       }
-//     });
-//   }
-// /////////////////////////////////
+    center: new google.maps.LatLng(51.5203643, -0.1089372),
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [
+      {
+        'featureType': 'administrative',
+        'elementType': 'labels.text.fill',
+        'stylers': [
+          {
+            'color': '#444444'
+          }
+        ]
+      },
+      {
+        'featureType': 'landscape',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#dee2d1'
+          },
+          {
+            'lightness': '100'
+          }
+        ]
+      },
+      {
+        'featureType': 'road',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'saturation': -100
+          },
+          {
+            'lightness': 45
+          }
+        ]
+      },
+      {
+        'featureType': 'road.highway',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#ff4b5f'
+          },
+          {
+            'visibility': 'simplified'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.highway',
+        'elementType': 'labels',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.highway.controlled_access',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#ff4b5f'
+          },
+          {
+            'visibility': 'simplified'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.highway.controlled_access',
+        'elementType': 'labels',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.arterial',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#ff4b5f'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.local',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#ff4b5f'
+          }
+        ]
+      },
+      {
+        'featureType': 'water',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#46c8fa'
+          },
+          {
+            'visibility': 'on'
+          }
+        ]
+      }
+    ]
   };
   App.map = new google.maps.Map(canvas, mapOptions);
   this.getCurrentLocation(),
@@ -198,44 +256,68 @@ App.loggedOutState = function(){
 App.register = function(e){
   if (e) e.preventDefault();
   this.$main.html(`
-    <h2>Register</h2>
-    <form method="post" action="/register">
-      <div class="form-group">
-        <input class="form-control" type="text" name="user[username]" placeholder="Username">
+<form method="post" action="/register">
+  <div class="navbar">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="text-center">Welcome</h1>
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="text" name="user[username]" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="email" name="user[email]" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="password" name="user[password]" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="password" name="user[passwordConfirmation]" placeholder="Password Confirmation">
+          </div>
+          <input class="btn btn-primary" type="submit" value="Register">
+           </div>
       </div>
-      <div class="form-group">
-        <input class="form-control" type="email" name="user[email]" placeholder="Email">
-      </div>
-      <div class="form-group">
-        <input class="form-control" type="password" name="user[password]" placeholder="Password">
-      </div>
-      <div class="form-group">
-        <input class="form-control" type="password" name="user[passwordConfirmation]" placeholder="Password Confirmation">
-      </div>
-      <input class="btn btn-primary" type="submit" value="Register">
-    </form>
+   </div>
+</form>
   `);
 };
+
+// //
+//     <form method="post" action="/register">
+//       <div class="form-group">
+//         <input class="form-control" type="text" name="user[username]" placeholder="Username">
+//       </div>
+//       <div class="form-group">
+//         <input class="form-control" type="email" name="user[email]" placeholder="Email">
+//       </div>
+//       <div class="form-group">
+//         <input class="form-control" type="password" name="user[password]" placeholder="Password">
+//       </div>
+//       <div class="form-group">
+//         <input class="form-control" type="password" name="user[passwordConfirmation]" placeholder="Password Confirmation">
+//       </div>
+//       <input class="btn btn-primary" type="submit" value="Register">
+//     </form>
+//
+// /////////////
 
 //login function so users can log in to the map
 App.login = function(e) {
   e.preventDefault();
   this.$main.html(`
   <form method="post" action="/login">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="text-center">Welcome</h1>
+    <div class="navbar">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="text-center">Welcome</h1>
             </div>
              <div class="modal-body">
-                 <div class="form-group">
-                     <input class="form-control" type="email" name="email" placeholder="Email">
+                <div class="form-group">
+                  <input class="form-control" type="email" name="email" placeholder="Email">
                  </div>
-
                  <div class="form-group">
                     <input class="form-control" type="password" name="password" placeholder="Password">
                  </div>
-
                  <div class="form-group">
                      <input class="btn btn-primary" type="submit" value="Login">
                  </div>
@@ -300,3 +382,57 @@ App.removeToken = function(){
 };
 
 $(App.init.bind(App));
+
+
+
+//     ///////// GEOLOCATION
+//     directionsService = new google.maps.DirectionsService,
+//     directionsDisplay = new google.maps.DirectionsRenderer
+//     //////////////////////
+//
+//     /////////////
+//
+//     document.getElementById('submit').addEventListener('click', function() {
+//       calculateAndDisplayRoute(directionsService, directionsDisplay);
+//     });
+//   }
+//
+//   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+//     var waypts = [];
+//     var checkboxArray = document.getElementById('waypoints');
+//     for (var i = 0; i < checkboxArray.length; i++) {
+//       if (checkboxArray.options[i].selected) {
+//         waypts.push({
+//           location: checkboxArray[i].value,
+//           stopover: true
+//         });
+//       }
+//     }
+//
+//     directionsService.route({
+//       origin: document.getElementById('start').value,
+//       destination: document.getElementById('end').value,
+//       waypoints: waypts,
+//       optimizeWaypoints: true,
+//       travelMode: 'WALKING'
+//     }, function(response, status) {
+//       if (status === 'OK') {
+//         directionsDisplay.setDirections(response);
+//         var route = response.routes[0];
+//         var summaryPanel = document.getElementById('directions-panel');
+//         summaryPanel.innerHTML = '';
+//         // For each route, display summary information.
+//         for (var i = 0; i < route.legs.length; i++) {
+//           var routeSegment = i + 1;
+//           summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+//               '</b><br>';
+//           summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+//           summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+//           summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+//         }
+//       } else {
+//         window.alert('Directions request failed due to ' + status);
+//       }
+//     });
+//   }
+// /////////////////////////////////
