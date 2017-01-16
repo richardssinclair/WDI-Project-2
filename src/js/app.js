@@ -32,8 +32,6 @@ App.addInfoWindowForPub = function(pub, marker) {
       </div>`,
       maxWidth: 500
     });
-
-
     this.infowindow.open(this.map, marker);
     this.map.setCenter(marker.getPosition());
   });
@@ -77,7 +75,7 @@ App.createMarkerForPub = function(pub) {
 
   const beerIcon = {
     url: 'images/beer.png',
-    scaledSize: new google.maps.Size(55, 65),
+    scaledSize: new google.maps.Size(28, 40),
     origin: new google.maps.Point(0, 0),
     anchor: new google.maps.Point(0, 0)
   };
@@ -119,59 +117,59 @@ App.createMap = function(){
   const mapOptions = {
     zoom: 14,
     center: new google.maps.LatLng(51.506178, -0.088369),
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    /////////
-    directionsService = new google.maps.DirectionsService,
-    directionsDisplay = new google.maps.DirectionsRenderer
-    //////////////////////
-
-    /////////////
-
-    document.getElementById('submit').addEventListener('click', function() {
-      calculateAndDisplayRoute(directionsService, directionsDisplay);
-    });
-  }
-
-  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-    var waypts = [];
-    var checkboxArray = document.getElementById('waypoints');
-    for (var i = 0; i < checkboxArray.length; i++) {
-      if (checkboxArray.options[i].selected) {
-        waypts.push({
-          location: checkboxArray[i].value,
-          stopover: true
-        });
-      }
-    }
-
-    directionsService.route({
-      origin: document.getElementById('start').value,
-      destination: document.getElementById('end').value,
-      waypoints: waypts,
-      optimizeWaypoints: true,
-      travelMode: 'WALKING'
-    }, function(response, status) {
-      if (status === 'OK') {
-        directionsDisplay.setDirections(response);
-        var route = response.routes[0];
-        var summaryPanel = document.getElementById('directions-panel');
-        summaryPanel.innerHTML = '';
-        // For each route, display summary information.
-        for (var i = 0; i < route.legs.length; i++) {
-          var routeSegment = i + 1;
-          summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-              '</b><br>';
-          summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-          summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-          summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-        }
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
-  }
-/////////////////////////////////
-};
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+//     /////////
+//     directionsService = new google.maps.DirectionsService,
+//     directionsDisplay = new google.maps.DirectionsRenderer
+//     //////////////////////
+//
+//     /////////////
+//
+//     document.getElementById('submit').addEventListener('click', function() {
+//       calculateAndDisplayRoute(directionsService, directionsDisplay);
+//     });
+//   }
+//
+//   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+//     var waypts = [];
+//     var checkboxArray = document.getElementById('waypoints');
+//     for (var i = 0; i < checkboxArray.length; i++) {
+//       if (checkboxArray.options[i].selected) {
+//         waypts.push({
+//           location: checkboxArray[i].value,
+//           stopover: true
+//         });
+//       }
+//     }
+//
+//     directionsService.route({
+//       origin: document.getElementById('start').value,
+//       destination: document.getElementById('end').value,
+//       waypoints: waypts,
+//       optimizeWaypoints: true,
+//       travelMode: 'WALKING'
+//     }, function(response, status) {
+//       if (status === 'OK') {
+//         directionsDisplay.setDirections(response);
+//         var route = response.routes[0];
+//         var summaryPanel = document.getElementById('directions-panel');
+//         summaryPanel.innerHTML = '';
+//         // For each route, display summary information.
+//         for (var i = 0; i < route.legs.length; i++) {
+//           var routeSegment = i + 1;
+//           summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+//               '</b><br>';
+//           summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+//           summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+//           summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+//         }
+//       } else {
+//         window.alert('Directions request failed due to ' + status);
+//       }
+//     });
+//   }
+// /////////////////////////////////
+  };
   App.map = new google.maps.Map(canvas, mapOptions);
   this.getCurrentLocation(),
   App.getPubs();
