@@ -13,15 +13,15 @@ const pubs = [{
   image: 'https://e5escapades.files.wordpress.com/2011/09/dove.jpg',
   description: 'the first pint',
   location: 'Broadway Market',
-  lat: '51.5363808',
-  lng: '0.0638915'
+  lat: '51.536365',
+  lng: '-0.061719'
 },{
   name: 'The Cat & Mutton',
   image: 'https://www.we-heart.com/upload-images/thecatmuttonlondon7.jpg',
   description: 'Pint 2 or 3 or 6...',
   location: 'Broadway Market',
-  lat: '51.5373',
-  lng: '0.0611623'
+  lat: '51.5374327',
+  lng: '-0.0615271'
 },{
   name: 'Bao Bar',
   image: 'https://www.we-heart.com/upload-images/thecatmuttonlondon7.jpg',
@@ -34,15 +34,15 @@ const pubs = [{
   image: 'http://cdn.wanderlust.co.uk/contentimages/wanderlust/li-cropped-ldn-fields.jpg?maxwidth=460',
   description: 'Pint 11.. starting to regret this..',
   location: 'Off Mare Street',
-  lat: '51.5376637',
-  lng: '-0.0590461'
+  lat: '51.538698',
+  lng: '-0.058092'
 },{
   name: 'The Dalston Jazz Bar',
   image: 'http://farm3.static.flickr.com/2697/4052751522_b97db9dd47.jpg',
   description: 'The Jazz bar invites you on a sensory and adventurous journey through gin',
   location: '4 Bradbury St, London N16 8JN',
-  lat: '51.5487',
-  lng: '0.0762'
+  lat: '51.548714',
+  lng: '-0.076286'
 }];
 
 pubs.forEach((pub) => {
