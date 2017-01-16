@@ -49,6 +49,7 @@ App.getCurrentLocation = function() {
       scaledSize: new google.maps.Size(65, 65),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(0, 0)
+      // GeoMarker: new GeolocationMarker(canvas)
     };
 
     new google.maps.Marker({
@@ -220,16 +221,28 @@ App.register = function(e){
 App.login = function(e) {
   e.preventDefault();
   this.$main.html(`
-    <h2>Login</h2>
-    <form method="post" action="/login">
-      <div class="form-group">
-        <input class="form-control" type="email" name="email" placeholder="Email">
-      </div>
-      <div class="form-group">
-        <input class="form-control" type="password" name="password" placeholder="Password">
-      </div>
-      <input class="btn btn-primary" type="submit" value="Login">
-    </form>
+  <form method="post" action="/login">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="text-center">Welcome</h1>
+            </div>
+             <div class="modal-body">
+                 <div class="form-group">
+                     <input class="form-control" type="email" name="email" placeholder="Email">
+                 </div>
+
+                 <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                 </div>
+
+                 <div class="form-group">
+                     <input class="btn btn-primary" type="submit" value="Login">
+                 </div>
+             </div>
+        </div>
+     </div>
+  </form>
   `);
 };
 
