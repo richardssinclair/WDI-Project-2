@@ -20,8 +20,8 @@ const pubs = [{
   image: 'https://www.we-heart.com/upload-images/thecatmuttonlondon7.jpg',
   description: 'Pint 2 or 3 or 6...',
   location: 'Broadway Market',
-  lat: '51.5374327',
-  lng: '-0.0615271'
+  lat: '51.537466',
+  lng: '-0.060968'
 },{
   name: 'Bao Bar',
   image: 'https://www.we-heart.com/upload-images/thecatmuttonlondon7.jpg',

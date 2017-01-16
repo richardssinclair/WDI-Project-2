@@ -67,7 +67,6 @@ App.getCurrentLocation = function() {
 };
 
 App.loopThroughPubs = function(pubs) {
-  console.log(pubs, 'UFKCFUCKFUCKFUCKFUCKFU');
   $.each(pubs.pubs, (index, pub) => {
     App.createMarkerForPub(pub);
   });
@@ -113,17 +112,72 @@ App.getPubs = function() {
   //   App.loopThroughPubs(pubs);
   // });
 };
-//creaiting a map with the id of canvas with map option settings
+//MAP MAP MAP MAP MAP creaiting a map with the id of canvas with map option settings
+
 App.createMap = function(){
   const canvas = document.getElementById('canvas');
   const mapOptions = {
     zoom: 14,
     center: new google.maps.LatLng(51.506178, -0.088369),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    /////////
+    directionsService = new google.maps.DirectionsService,
+    directionsDisplay = new google.maps.DirectionsRenderer
+    //////////////////////
+
+    /////////////
+
+    document.getElementById('submit').addEventListener('click', function() {
+      calculateAndDisplayRoute(directionsService, directionsDisplay);
+    });
+  }
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    var waypts = [];
+    var checkboxArray = document.getElementById('waypoints');
+    for (var i = 0; i < checkboxArray.length; i++) {
+      if (checkboxArray.options[i].selected) {
+        waypts.push({
+          location: checkboxArray[i].value,
+          stopover: true
+        });
+      }
+    }
+
+    directionsService.route({
+      origin: document.getElementById('start').value,
+      destination: document.getElementById('end').value,
+      waypoints: waypts,
+      optimizeWaypoints: true,
+      travelMode: 'WALKING'
+    }, function(response, status) {
+      if (status === 'OK') {
+        directionsDisplay.setDirections(response);
+        var route = response.routes[0];
+        var summaryPanel = document.getElementById('directions-panel');
+        summaryPanel.innerHTML = '';
+        // For each route, display summary information.
+        for (var i = 0; i < route.legs.length; i++) {
+          var routeSegment = i + 1;
+          summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+              '</b><br>';
+          summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+          summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+          summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+        }
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+/////////////////////////////////
+};
   App.map = new google.maps.Map(canvas, mapOptions);
   this.getCurrentLocation(),
   App.getPubs();
+  ////
+  this.directionsDisplay.setMap();
+  //////////
 };
 
 App.loggedInState = function(){

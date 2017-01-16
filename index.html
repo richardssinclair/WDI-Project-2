@@ -36,6 +36,37 @@
         </div>
       </div>
     </nav>
-    <main></main>
+    <main>
+
+      <div id="canvas"></div>
+          <div id="right-panel">
+          <div>
+          <b>Start:</b>
+          <select id="start">
+            <option value="Beer 1">Hachney</option>
+            <option value="Beer 2">Dalston</option>
+          </select>
+          <br>
+          <b>Waypoints:</b> <br>
+          <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
+          <select multiple id="waypoints">
+            <option value="The Dove">The Dove</option>
+            <option value="The Cat and Mutton">The Cat and Mutton</option>
+            <option value="Bao Bar">Bao Bar</option>
+            <option value="The Taproom">The Taproom</option>
+            <option value="The Dalston Jazz Bar">The Dalston Jazz Bar</option>
+          </select>
+          <br>
+          <b>End:</b>
+          <select id="end">
+            <option value="Beer 1">Hachney</option>
+            <option value="Beer 2">Dalston</option>
+          </select>
+          <br>
+            <input type="submit" id="submit">
+          </div>
+          <div id="directions-panel"></div>
+          </div>
+    </main>
   </body>
 </html>
