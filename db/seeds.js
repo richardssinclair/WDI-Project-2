@@ -107,40 +107,61 @@ const pubs = [{
   lat: '51.537265',
   lng: '-0.140995'
 },{
-  name: '/////////////',
+  name: 'The Worlds End',
   image: 'photo photo photo',
-  description: 'blues kitchen in the ditch of shore...',
-  location: 'Shoreditch',
-  lat: '51.526524',
-  lng: '-0.080173'
+  description: 'Strange place',
+  location: 'Camden Town',
+  lat: '51.539119',
+  lng: '-0.142261'
 },{
-  name: '///////////////',
+  name: 'The Camden Eye',
   image: 'photo photo photo',
-  description: 'blues kitchen in the ditch of shore...',
-  location: 'Shoreditch',
-  lat: '51.526524',
-  lng: '-0.080173'
+  description: 'Open mic mondays.',
+  location: 'Camden',
+  lat: '51.539462',
+  lng: '-0.142239'
 },{
-  name: '////////////////',
+  name: 'The Dublin Castle',
   image: 'photo photo photo',
-  description: 'blues kitchen in the ditch of shore...',
-  location: 'Shoreditch',
-  lat: '51.526524',
-  lng: '-0.080173'
+  description: 'Open mic teusdays',
+  location: 'Camden',
+  lat: '51.537432',
+  lng: '-0.145550'
 },{
-  name: '/////////////////',
+  name: 'The Elephants Head',
   image: 'photo photo photo',
-  description: 'blues kitchen in the ditch of shore...',
-  location: 'Shoreditch',
-  lat: '51.526524',
-  lng: '-0.080173'
+  description: 'open mic wednsdays.. nice pub',
+  location: 'Camden High Street',
+  lat: '51.540713',
+  lng: '-0.143976'
 },{
-  name: 'Blues Kitchen Shoreditch',
+  name: 'The Lock Tavern',
   image: 'photo photo photo',
-  description: 'blues kitchen in the ditch of shore...',
-  location: 'Shoreditch',
-  lat: '51.526524',
-  lng: '-0.080173'
+  description: 'good gigs.. nice pub',
+  location: 'Near Camden Market',
+  lat: '51.542811',
+  lng: '-0.147687'
+},{
+  name: 'The Monarch',
+  image: 'photo photo photo',
+  description: 'Pool, decent gigs..',
+  location: 'Near Camden Market',
+  lat: '51.542897',
+  lng: '-0.148429'
+},{
+  name: 'Camden Assembly',
+  image: 'photo photo photo',
+  description: 'good gigs.. nice pub',
+  location: 'Near Camden Market',
+  lat: '51.543059',
+  lng: '-0.149224'
+},{
+  name: 'Quinns',
+  image: 'photo photo photo',
+  description: 'strange place allways open...',
+  location: 'Camden/Kentish Town',
+  lat: '51.542838',
+  lng: '-0.141994'
 },{
 
 }];
