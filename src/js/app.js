@@ -30,7 +30,7 @@ App.addInfoWindowForPub = function(pub, marker) {
         <p> ${ pub.description } </p>
         <p> ${ pub.location } </p>
       </div>`,
-      maxWidth: 500
+      maxWidth: 300
     });
     this.infowindow.open(this.map, marker);
     this.map.setCenter(marker.getPosition());
