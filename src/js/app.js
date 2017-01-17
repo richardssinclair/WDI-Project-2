@@ -345,35 +345,24 @@ App.AutocompleteDirectionsHandler = function() {
   this.originPlaceId      = null;
   this.destinationPlaceId = null;
   // Find the two autocomplete fields
-  this.calculateRoute     = document.getElementById('calculateRoute');
-  this.originInput        = document.getElementById('origin-input');
   this.destinationInput   = document.getElementById('destination-input');
   this.numberOfPubsInput  = document.getElementById('number-of-pubs-input');
-  this.submitInput        = document.getElementById('submit-input');
   this.directionsService  = new google.maps.DirectionsService;
   this.directionsDisplay  = new google.maps.DirectionsRenderer;
 
   this.directionsDisplay.setMap(this.map);
 
   // Make the autocomplete fields work
-  var originAutocomplete      = new google.maps.places.Autocomplete(this.originInput,{placeIdOnly: true});
   var destinationAutocomplete = new google.maps.places.Autocomplete(this.destinationInput,{placeIdOnly: true});
 
   // Setup an event listener for when the autocompletes files
-  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
-  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
-
-  // Display the controls ontop of the map in the top left
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.originInput);
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.destinationInput);
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.numberOfPubsInput);
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.submitInput);
+  this.setupPlaceChangedListener(destinationAutocomplete);
 
   // Start routing when you click on the submit button.
-  this.submitInput.addEventListener('click', this.route.bind(this));
+  $('#calculateRoute').on('submit', this.route.bind(this));
 };
 
-App.setupPlaceChangedListener = function(autocomplete, mode) {
+App.setupPlaceChangedListener = function(autocomplete) {
   var me = this;
   autocomplete.bindTo('bounds', this.map);
   autocomplete.addListener('place_changed', function() {
@@ -382,12 +371,7 @@ App.setupPlaceChangedListener = function(autocomplete, mode) {
       window.alert('Please select an option from the dropdown list.');
       return;
     }
-    if (mode === 'ORIG') {
-      me.originPlaceId = place.place_id;
-    } else {
-      me.destinationPlaceId = place.place_id;
-    }
-    // me.route();
+    me.destinationPlaceId = place.place_id;
   });
 };
 
@@ -395,21 +379,17 @@ App.getPubs = function(latitude, longitude, numberOfPubs, callback) {
   return App.ajaxRequest(`http://localhost:3000/api/pubs?latitude=${latitude}&longitude=${longitude}&limit=${numberOfPubs}`, 'GET', null, callback);
 };
 
-App.route = function() {
+App.route = function(e) {
+  e.preventDefault();
+
   var me = this;
 
   const numberOfPubs = this.numberOfPubsInput.value;
 
-  if (!me.originPlaceId || !me.destinationPlaceId || !numberOfPubs) {
+  if (!me.destinationPlaceId || !numberOfPubs) {
     alert('Please fill in all fields!');
     return;
   }
-
-  // console.log('Place', this.destinationPlaceId);
-  // $.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${this.destinationPlaceId}&key=AIzaSyC0-iNcDr2U-ASJpIJ6QQLVt_WEqKBleS8`)
-  // .done(data => {
-  //   console.log(data);
-  // })
 
   App.getPubs(App.currentLocation.lat, App.currentLocation.lng, numberOfPubs, data => {
     var waypts = [];
@@ -422,7 +402,7 @@ App.route = function() {
     });
 
     this.directionsService.route({
-      origin: { 'placeId': this.originPlaceId },
+      origin: { lat: App.currentLocation.lat, lng: App.currentLocation.lng },
       destination: { 'placeId': this.destinationPlaceId },
       travelMode: 'WALKING',
       waypoints: waypts,
