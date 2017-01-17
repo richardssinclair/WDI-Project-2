@@ -246,19 +246,19 @@ App.loggedInState = function(){
 
     <div id="canvas"></div>
     `);
-    this.createMap();
-  };
+  this.createMap();
+};
 
-  App.loggedOutState = function(){
-    $('.loggedIn').hide();
-    $('.loggedOut').show();
-    this.register();
-  };
+App.loggedOutState = function(){
+  $('.loggedIn').hide();
+  $('.loggedOut').show();
+  this.register();
+};
 
   //register finction, displays register inputs so users gan register
-  App.register = function(e){
-    if (e) e.preventDefault();
-    this.$main.html(`
+App.register = function(e){
+  if (e) e.preventDefault();
+  this.$main.html(`
       <form method="post" action="/register">
       <div class="navbar">
       <div class="modal-content">
@@ -283,71 +283,71 @@ App.loggedInState = function(){
       </div>
       </form>
       `);
-    };
+};
 
     //login function so users can log in to the map
-    App.login = function(e) {
-      e.preventDefault();
-      this.$main.html(`
-        <form method="post" action="/login">
-        <div class="navbar">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h1 class="text-center">Welcome</h1>
-        </div>
-        <div class="modal-body">
-        <div class="form-group">
-        <input class="form-control" type="email" name="email" placeholder="Email">
-        </div>
-        <div class="form-group">
-        <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-        <input class="btn btn-primary" type="submit" value="Login">
-        </div>
-        </div>
-        </div>
-        </div>
-        </form>
-        `);
-      };
+App.login = function(e) {
+  e.preventDefault();
+  this.$main.html(`
+    <form method="post" action="/login">
+    <div class="navbar">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h1 class="text-center">Welcome</h1>
+    </div>
+    <div class="modal-body">
+    <div class="form-group">
+    <input class="form-control" type="email" name="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+    <input class="form-control" type="password" name="passwo    placeholder="Password">
+    </div>
+    <div class="form-group">
+    <input class="btn btn-primary" type="submit" value="Login">
+    </div>
+    </div>
+    </div>
+    </div>
+    </form>
+    `);
+};
 
-      App.logout = function(e){
-        e.preventDefault();
-        this.removeToken();
-        this.loggedOutState();
-      };
+App.logout = function(e){
+  e.preventDefault();
+  this.removeToken();
+  this.loggedOutState();
+};
 
-      App.homepage = function(){
-        console.log('shabba!');
-      };
+App.homepage = function(){
+  console.log('shabba!');
+};
 
-      App.handleForm = function(e){
-        console.log('running');
-        e.preventDefault();
-        const url    = `${App.apiUrl}${$(this).attr('action')}`;
-        const method = $(this).attr('method');
-        const data   = $(this).serialize();
+App.handleForm = function(e){
+  console.log('running');
+  e.preventDefault();
+  const url    = `${App.apiUrl}${$(this).attr('action')}`;
+  const method = $(this).attr('method');
+  const data   = $(this).serialize();
 
-        console.log(url, method, data);
-        return App.ajaxRequest(url, method, data, data => {
-          if (data.token) App.setToken(data.token);
-          App.loggedInState();
-        });
-      };
+  console.log(url, method, data);
+  return App.ajaxRequest(url, method, data, data => {
+    if (data.token) App.setToken(data.token);
+    App.loggedInState();
+  });
+};
 
-      App.ajaxRequest = function(url, method, data, callback){
-        return $.ajax({
-          url,
-          method,
-          data,
-          beforeSend: this.setRequestHeader.bind(this)
-        })
-        .done(callback)
-        .fail(data => {
-          console.log(data);
-        });
-      };
+App.ajaxRequest = function(url, method, data, callback){
+  return $.ajax({
+    url,
+    method,
+    data,
+    beforeSend: this.setRequestHeader.bind(this)
+  })
+  .done(callback)
+  .fail(data => {
+    console.log(data);
+  });
+};
 
       App.setRequestHeader = function(xhr) {
         return xhr.setRequestHeader('Authorization', `Bearer ${this.getToken()}`);
