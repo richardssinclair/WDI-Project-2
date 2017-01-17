@@ -183,23 +183,23 @@ const pubs = [{
   location: 'Denmark Street',
   loc: [-0.129387,51.515189]
 },{
-  name: 'The Smoking Goat',
-  image: '...........',
-  description: '...........',
-  location: '...........',
-  loc: [-0.104963,51.533785]
+  name: 'The Montagu Pyke',
+  image: 'http://pubsandbeer.co.uk/picts/918b.jpeg',
+  description: 'Dark weatherspoons...',
+  location: 'Soho',
+  loc: [-0.129741,51.514039]
 },{
-  name: 'The Smoking Goat',
-  image: '...........',
-  description: '...........',
-  location: '...........',
-  loc: [-0.104963,51.533785]
+  name: 'The Toucan',
+  image: 'http://www.radissonblu-edwardian.com/blog/wp-content/uploads/2015/03/The-Toucan-blog.jpg',
+  description: 'irish pub in soho',
+  location: 'Soho Square',
+  loc: [-0.133104,51.515145]
 },{
-  name: 'The Smoking Goat',
-  image: '...........',
-  description: '...........',
-  location: '...........',
-  loc: [-0.104963,51.533785]
+  name: 'The Nellie Dean',
+  image: 'http://www.fancyapint.com/media/pubimages/pic219.jpg',
+  description: 'not as good as The Toucan',
+  location: 'Soho Square',
+  loc: [-0.133481,51.514893]
 },{
   name: 'The Smoking Goat',
   image: '...........',
