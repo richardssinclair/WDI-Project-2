@@ -14,6 +14,3 @@ router.route('/pubs')
 
 
 module.exports = router;
-
-
-// const users = require('../controllers/users');

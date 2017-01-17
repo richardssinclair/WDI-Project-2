@@ -143,8 +143,7 @@ App.removeToken = function(){
   return window.localStorage.clear();
 };
 
-    // ------------------------------------------------------------------------
-    // MAP RELATED CODE
+    // ---------------------------------------------------------------MAP RELATED CODE
 
 App.createMap = function(){
   const canvas = document.getElementById('canvas');
@@ -333,7 +332,7 @@ App.getCurrentLocation = function() {
       lat: position.coords.latitude,
       lng: position.coords.longitude
     };
-    //semicolan here.............
+
     const icon = {
       url: 'images/dot.png',
       scaledSize: new google.maps.Size(20, 20),
@@ -404,7 +403,7 @@ App.route = function(e) {
     alert('Please fill in all fields!');
     return;
   }
-//----------------------------might be here for info
+
   App.getPubs(App.currentLocation.lat, App.currentLocation.lng, numberOfPubs, data => {
     var waypts = [];
     var infoForWaypts = [];
@@ -466,11 +465,7 @@ App.route = function(e) {
       });
     });
   });
-      // App.directionsService  = new google.maps.DirectionsService();
-      // App.directionsDisplay  = new google.maps.DirectionsRenderer({
-      //   suppressMarkers: true
-      // });
-  console.log('here');
+
 };
 
 $(App.init.bind(App));
