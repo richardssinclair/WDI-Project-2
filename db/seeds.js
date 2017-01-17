@@ -160,22 +160,65 @@ const pubs = [{
   loc: [-0.106345,51.532171]
 },{
   name: '02 Academy Islington',
-  image: 'jpg...........',
+  image: 'http://217.199.187.73/carnevalenetwork.co.uk/images/redevent/venues/islington-214102009174541_1398253117.jpg',
   description: 'nice venue for music',
   location: 'Angel',
   loc: [-0.105847,51.534329]
 },{
-  name: '............',
-  image: 'jpg...........',
-  description: '.............',
-  location: '.............',
-  loc: [-0.075669,51.521608]
+  name: 'The Steam Passage',
+  image: 'https://www.matchpint.co.uk/imagenes/venues/2014-04/2193-_mg_0115.jpg',
+  description: 'nice open pub',
+  location: 'Angel',
+  loc: [-0.104729,51.535009]
 },{
-  name: '............',
-  image: 'jpg...........',
-  description: '.............',
-  location: '.............',
-  loc: [-0.075669,51.521608]
+  name: 'The York',
+  image: 'https://c2.staticflickr.com/8/7006/6775862741_93783d3387_b.jpg',
+  description: 'nice pub',
+  location: 'Angel',
+  loc: [-0.104963,51.533785]
+},{
+  name: 'The Smoking Goat',
+  image: 'http://www.thetimes.co.uk/tto/multimedia/archive/00846/DSC_5365_a_846735c.jpg',
+  description: 'amazing little place in denmark street',
+  location: 'Denmark Street',
+  loc: [-0.129387,51.515189]
+},{
+  name: 'The Smoking Goat',
+  image: '...........',
+  description: '...........',
+  location: '...........',
+  loc: [-0.104963,51.533785]
+},{
+  name: 'The Smoking Goat',
+  image: '...........',
+  description: '...........',
+  location: '...........',
+  loc: [-0.104963,51.533785]
+},{
+  name: 'The Smoking Goat',
+  image: '...........',
+  description: '...........',
+  location: '...........',
+  loc: [-0.104963,51.533785]
+},{
+  name: 'The Smoking Goat',
+  image: '...........',
+  description: '...........',
+  location: '...........',
+  loc: [-0.104963,51.533785]
+},{
+  name: 'The Smoking Goat',
+  image: '...........',
+  description: '...........',
+  location: '...........',
+  loc: [-0.104963,51.533785]
+},{
+  name: 'The Smoking Goat',
+  image: '...........',
+  description: '...........',
+  location: '...........',
+  loc: [-0.104963,51.533785]
+}
 }
 ];
 
