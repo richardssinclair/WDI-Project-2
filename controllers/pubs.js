@@ -5,6 +5,8 @@ function pubsIndex(req, res){
   coords[0] = req.query.longitude || 0;
   coords[1] = req.query.latitude || 0;
 
+console.log(coords);
+
   Pub.find({
     loc: {
       $near: coords
