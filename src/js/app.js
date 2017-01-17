@@ -355,7 +355,7 @@ App.getCurrentLocation = function() {
 
     const icon = {
       url: 'images/dot.png',
-      scaledSize: new google.maps.Size(35, 35),
+      scaledSize: new google.maps.Size(20, 20),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(0, 0)
       // GeoMarker: new GeolocationMarker(canvas)
