@@ -3,13 +3,14 @@ const google = google;
 
 //makes the app, runs the functions in the authenticatons form
 App.init = function() {
+  this.createMap();
   this.apiUrl = 'http://localhost:3000/api';
-  this.$main  = $('main');
+
   $('.register').on('click', this.register.bind(this));
   $('.login').on('click', this.login.bind(this));
   $('.logout').on('click', this.logout.bind(this));
   $('.home').on('click', this.homepage.bind(this));
-  this.$main.on('submit', 'form', this.handleForm);
+  $('.modal').on('submit', 'form', this.handleForm);
 
   if (this.getToken()) {
     this.loggedInState();
@@ -18,19 +19,6 @@ App.init = function() {
   }
 };
 
-//adding a pub ajax request.. a little confused..i dont think this is working..
-// App.addPub = function(){
-//   event.preventDefault();
-//   $.ajax({
-//     method: 'POST',
-//     data: $(this).serialize()
-//   }).done(data => {
-//     console.log(data.pub);
-//     App.createMarkerForPub(null, data.pub);
-//     $('form').reset().hide();
-//   });
-// };
-
 App.getPubs = function(latitude, longitude, callback) {
   return App.ajaxRequest(`http://localhost:3000/api/pubs?latitude=${latitude}&longitude=${longitude}`, 'GET', null, callback);
 };
@@ -38,18 +26,6 @@ App.getPubs = function(latitude, longitude, callback) {
 App.loggedInState = function(){
   $('.loggedIn').show();
   $('.loggedOut').hide();
-  this.$main.html(`
-    <input id="origin-input" class="controls" type="text"
-    placeholder="Enter an origin location">
-
-    <input id="destination-input" class="controls" type="text"
-    placeholder="Enter a destination location">
-
-    <input id="number-of-pubs-input" class="controls" type="text"
-    placeholder="Enter the number of pubs">
-
-    <div id="canvas"></div>`);
-  this.createMap();
 };
 
 App.loggedOutState = function(){
@@ -60,55 +36,59 @@ App.loggedOutState = function(){
 
 App.register = function(e){
   if (e) e.preventDefault();
-  this.$main.html(`
+  $('.modal-content').html(`
   <form method="post" action="/register">
-  <div class="modal-content">
-  <div class="modal-header">
-  <h1 class="text-center">Welcome</h1>
-  </div>
-  <div class="form-group">
-  <input class="form-control" type="text" name="user[username]" placeholder="Username">
-  </div>
-  <div class="form-group">
-  <input class="form-control" type="email" name="user[email]" placeholder="Email">
-  </div>
-  <div class="form-group">
-  <input class="form-control" type="password" name="user[password]" placeholder="Password">
-  </div>
-  <div class="form-group">
-  <input class="form-control" type="password" name="user[passwordConfirmation]" placeholder="Password Confirmation">
-  </div>
-  <input class="btn btn-primary" type="submit" value="Register">
-  </div>
-  </div>
-  </div>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">Register</h4>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <input class="form-control" type="text" name="user[username]" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="email" name="user[email]" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="password" name="user[password]" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="password" name="user[passwordConfirmation]" placeholder="Password Confirmation">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <input class="btn btn-primary" type="submit" value="Register">
+    </div>
   </form>`);
+
+  $('.modal').modal('show');
 };
 
 //login function so users can log in to the map
 App.login = function(e) {
   e.preventDefault();
-  this.$main.html(`
+  $('.modal-content').html(`
     <form method="post" action="/login">
-    <div class="navbar">
-    <div class="modal-content">
     <div class="modal-header">
-    <h1 class="text-center">Welcome</h1>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">Login</h4>
     </div>
     <div class="modal-body">
-    <div class="form-group">
-    <input class="form-control" type="email" name="email" placeholder="Email">
+      <div class="form-group">
+        <input class="form-control" type="email" name="email" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="password" name="password" placeholder="Password">
+      </div>
     </div>
-    <div class="form-group">
-    <input class="form-control" type="password" name="password" placeholder="Password">
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <input class="btn btn-primary" type="submit" value="Login">
     </div>
-    <div class="form-group">
-    <input class="btn btn-primary" type="submit" value="Login">
-    </div>
-    </div>
-    </div>
-    </div>
-    </form>`);
+  </form>`);
+
+  $('.modal').modal('show');
 };
 
 App.logout = function(e){
@@ -127,7 +107,10 @@ App.handleForm = function(e){
   const method = $(this).attr('method');
   const data   = $(this).serialize();
 
-  console.log(url, method, data);
+  // Hide the modal.
+  // Might want to work out slightly better logic for this if the form fails?
+  $('.modal').modal('hide');
+
   return App.ajaxRequest(url, method, data, data => {
     if (data.token) App.setToken(data.token);
     App.loggedInState();
