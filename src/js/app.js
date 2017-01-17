@@ -353,36 +353,6 @@ App.getCurrentLocation = function() {
       // App.ajaxRequest('http://localhost:3000/api/pubs', 'GET');
 };
 
-    // App.loopThroughPubs = function(pubs) {
-    //   $.each(pubs.pubs, (index, pub) => {
-    //     setTimeout(() => {
-    //       App.createMarkerForPub(pub);
-    //     }, index * 200);
-    //   });
-    // };
-
-    // App.createMarkerForPub = function(pub) {
-    //   const latlng = new google.maps.LatLng(pub.lat, pub.lng);
-    //
-    //   const beerIcon = {
-    //     url: '/images/beer.png',
-    //     scaledSize: new google.maps.Size(40, 55),
-    //     origin: new google.maps.Point(0, 0),
-    //     anchor: new google.maps.Point(0, 0)
-    //   };
-    //
-    //   const marker = new google.maps.Marker({
-    //     position: latlng,
-    //     map: this.map,
-    //     animation: google.maps.Animation.DROP,
-    //     icon: '/images/beer.png'
-    //   });
-    //   App.map.panTo(App.getPubs);
-    //   this.addInfoWindowForPub(pub, marker);
-    // };
-
-    //---------------------
-
 App.AutocompleteDirectionsHandler = function() {
   this.originPlaceId      = null;
   this.destinationPlaceId = null;
