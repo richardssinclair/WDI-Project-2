@@ -354,19 +354,18 @@ App.getCurrentLocation = function() {
     };
 
     const icon = {
-      icon: '/images/dot.png',
-      size: new google.maps.Size(35, 35),
+      url: 'images/dot.png',
+      scaledSize: new google.maps.Size(35, 35),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(0, 0)
-
       // GeoMarker: new GeolocationMarker(canvas)
     };
 
     new google.maps.Marker({
       position: App.currentLocation,
-      map: this.map,
+      map: App.map,
       animation: google.maps.Animation.DROP,
-      icon: icon
+      icon
     });
     App.map.panTo(App.currentLocation);
   });
