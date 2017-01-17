@@ -37,6 +37,7 @@ App.register = function(e){
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <h4 class="modal-title">Register</h4>
+      <p>Are you thirsty? sign up to get on with your pub crawl</p>
     </div>
     <div class="modal-body">
       <div class="form-group">
@@ -162,6 +163,24 @@ App.createMap = function(){
         ]
       },
       {
+        'featureType': 'administrative.country',
+        'elementType': 'geometry.fill',
+        'stylers': [
+          {
+            'visibility': 'on'
+          }
+        ]
+      },
+      {
+        'featureType': 'administrative.country',
+        'elementType': 'labels.text.fill',
+        'stylers': [
+          {
+            'visibility': 'on'
+          }
+        ]
+      },
+      {
         'featureType': 'landscape',
         'elementType': 'all',
         'stylers': [
@@ -207,6 +226,15 @@ App.createMap = function(){
         ]
       },
       {
+        'featureType': 'road.highway',
+        'elementType': 'labels.text',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      },
+      {
         'featureType': 'road.highway.controlled_access',
         'elementType': 'all',
         'stylers': [
@@ -228,6 +256,15 @@ App.createMap = function(){
         ]
       },
       {
+        'featureType': 'road.highway.controlled_access',
+        'elementType': 'labels.text',
+        'stylers': [
+          {
+            'visibility': 'on'
+          }
+        ]
+      },
+      {
         'featureType': 'road.arterial',
         'elementType': 'all',
         'stylers': [
@@ -237,11 +274,35 @@ App.createMap = function(){
         ]
       },
       {
+        'featureType': 'road.arterial',
+        'elementType': 'labels.text',
+        'stylers': [
+          {
+            'visibility': 'simplified'
+          },
+          {
+            'color': '#000000'
+          }
+        ]
+      },
+      {
         'featureType': 'road.local',
         'elementType': 'all',
         'stylers': [
           {
             'color': '#efc952'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.local',
+        'elementType': 'labels.text',
+        'stylers': [
+          {
+            'visibility': 'simplified'
+          },
+          {
+            'color': '#000000'
           }
         ]
       },
@@ -259,12 +320,12 @@ App.createMap = function(){
       }
     ]
   };
-
+//--------need to call the pub marker action-here?-----
   this.map = new google.maps.Map(canvas, mapOptions);
   this.getCurrentLocation();
   this.AutocompleteDirectionsHandler();
+  //this.getPubMarker();
 };
-
 
 //info window for markers displays infotmation image,name,discription,location
 // App.addInfoWindowForPub = function(pub, marker) {
@@ -293,23 +354,23 @@ App.getCurrentLocation = function() {
     };
 
     const icon = {
-      url: 'images/dot.png',
-      scaledSize: new google.maps.Size(35, 35),
+      icon: '/images/dot.png',
+      size: new google.maps.Size(35, 35),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(0, 0)
+
       // GeoMarker: new GeolocationMarker(canvas)
     };
 
     new google.maps.Marker({
       position: App.currentLocation,
-      map: App.map,
+      map: this.map,
       animation: google.maps.Animation.DROP,
-      icon
+      icon: icon
     });
     App.map.panTo(App.currentLocation);
   });
 
-  //whats going on here?? calling stuff?
   // App.ajaxRequest('http://localhost:3000/api/pubs', 'GET');
 };
 
@@ -320,12 +381,12 @@ App.getCurrentLocation = function() {
 //     }, index * 200);
 //   });
 // };
-//
+
 // App.createMarkerForPub = function(pub) {
 //   const latlng = new google.maps.LatLng(pub.lat, pub.lng);
 //
 //   const beerIcon = {
-//     url: 'images/beer.png',
+//     url: '/images/beer.png',
 //     scaledSize: new google.maps.Size(40, 55),
 //     origin: new google.maps.Point(0, 0),
 //     anchor: new google.maps.Point(0, 0)
@@ -335,11 +396,13 @@ App.getCurrentLocation = function() {
 //     position: latlng,
 //     map: this.map,
 //     animation: google.maps.Animation.DROP,
-//     icon: beerIcon
+//     icon: '/images/beer.png'
 //   });
-//
+//   App.map.panTo(App.getPubs);
 //   this.addInfoWindowForPub(pub, marker);
 // };
+
+//---------------------
 
 App.AutocompleteDirectionsHandler = function() {
   this.originPlaceId      = null;
@@ -401,6 +464,7 @@ App.route = function(e) {
       });
     });
 
+
     this.directionsService.route({
       origin: { lat: App.currentLocation.lat, lng: App.currentLocation.lng },
       destination: { 'placeId': this.destinationPlaceId },
@@ -416,40 +480,5 @@ App.route = function(e) {
     });
   });
 };
-
-/////////////delete this after......
-// App.loopThroughPubs = function(pubs) {
-//   $.each(pubs.pubs, (index, pub) => {
-//     setTimeout(() => {
-//       App.createMarkerForPub(pub);
-//     }, index * 200);
-//   });
-// };
-//
-// App.createMarkerForPub = function(pub) {
-//   const latlng = new google.maps.LatLng(pub.lat, pub.lng);
-//
-//   const beerIcon = {
-//     url: 'images/beer.png',
-//     scaledSize: new google.maps.Size(40, 55),
-//     origin: new google.maps.Point(0, 0),
-//     anchor: new google.maps.Point(0, 0)
-//   };
-//
-//   const marker = new google.maps.Marker({
-//     position: latlng,
-//     map: this.map,
-//     animation: google.maps.Animation.DROP,
-//     icon: beerIcon
-//   });
-//
-//   this.addInfoWindowForPub(pub, marker);
-// };
-
-
-
-
-
-
 
 $(App.init.bind(App));

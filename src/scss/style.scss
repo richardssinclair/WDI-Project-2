@@ -4,7 +4,7 @@ body {
 
 #canvas {
   width: 100%;
-  height: calc(100vh - 74px);
+  height: calc(103vh - 74px);
   margin: 0 auto;
 }
 
@@ -35,6 +35,7 @@ body {
 .navbar {
   margin-bottom: 0;
   border-radius: 0;
+
 }
 
 .navbar-form .form-control {
@@ -58,3 +59,33 @@ body {
   display: inline-block;
   margin-top: -5px;
 }
+//footer form buttons--------
+.modal-footer {
+    .btn {
+      background: #334d5c;
+      border-color: #334d5c;
+      color: #efca55;
+      &:hover {
+        background: #334d5c;
+        border-color: #334d5c;
+        color: white;
+      }
+    }
+  }
+
+//log in and register buttons--------
+  .navbar-default {
+     .navbar-nav>li>a {
+           background: #334d5c;
+           border-color: #334d5c;
+           color: #efca55;
+           margin: 1px;
+           border-radius: 5px;
+           &:hover {
+             background: #334d5c;
+             border-color: #334d5c;
+             color: white;
+
+           }
+         }
+       }
