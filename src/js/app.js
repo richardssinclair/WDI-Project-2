@@ -150,114 +150,114 @@ App.createMap = function(){
   const mapOptions = {
     zoom: 14,
     center: new google.maps.LatLng(51.5203643, -0.1089372),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  //   styles: [
-  //     {
-  //       'featureType': 'administrative',
-  //       'elementType': 'labels.text.fill',
-  //       'stylers': [
-  //         {
-  //           'color': '#444444'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'featureType': 'landscape',
-  //       'elementType': 'all',
-  //       'stylers': [
-  //         {
-  //           'color': '#dee2d1'
-  //         },
-  //         {
-  //           'lightness': '100'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'featureType': 'road',
-  //       'elementType': 'all',
-  //       'stylers': [
-  //         {
-  //           'saturation': -100
-  //         },
-  //         {
-  //           'lightness': 45
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'featureType': 'road.highway',
-  //       'elementType': 'all',
-  //       'stylers': [
-  //         {
-  //           'color': '#ff4b5f'
-  //         },
-  //         {
-  //           'visibility': 'simplified'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'featureType': 'road.highway',
-  //       'elementType': 'labels',
-  //       'stylers': [
-  //         {
-  //           'visibility': 'off'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'featureType': 'road.highway.controlled_access',
-  //       'elementType': 'all',
-  //       'stylers': [
-  //         {
-  //           'color': '#ff4b5f'
-  //         },
-  //         {
-  //           'visibility': 'simplified'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'featureType': 'road.highway.controlled_access',
-  //       'elementType': 'labels',
-  //       'stylers': [
-  //         {
-  //           'visibility': 'off'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'featureType': 'road.arterial',
-  //       'elementType': 'all',
-  //       'stylers': [
-  //         {
-  //           'color': '#ff4b5f'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'featureType': 'road.local',
-  //       'elementType': 'all',
-  //       'stylers': [
-  //         {
-  //           'color': '#ff4b5f'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'featureType': 'water',
-  //       'elementType': 'all',
-  //       'stylers': [
-  //         {
-  //           'color': '#46c8fa'
-  //         },
-  //         {
-  //           'visibility': 'on'
-  //         }
-  //       ]
-  //     }
-  //   ]
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [
+      {
+        'featureType': 'administrative',
+        'elementType': 'labels.text.fill',
+        'stylers': [
+          {
+            'color': '#444444'
+          }
+        ]
+      },
+      {
+        'featureType': 'landscape',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#dee2d1'
+          },
+          {
+            'lightness': '100'
+          }
+        ]
+      },
+      {
+        'featureType': 'road',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'saturation': -100
+          },
+          {
+            'lightness': 45
+          }
+        ]
+      },
+      {
+        'featureType': 'road.highway',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#efc952'
+          },
+          {
+            'visibility': 'simplified'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.highway',
+        'elementType': 'labels',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.highway.controlled_access',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#efc952'
+          },
+          {
+            'visibility': 'simplified'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.highway.controlled_access',
+        'elementType': 'labels',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.arterial',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#efc952'
+          }
+        ]
+      },
+      {
+        'featureType': 'road.local',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#efc952'
+          }
+        ]
+      },
+      {
+        'featureType': 'water',
+        'elementType': 'all',
+        'stylers': [
+          {
+            'color': '#334d5c'
+          },
+          {
+            'visibility': 'on'
+          }
+        ]
+      }
+    ]
   };
 
   this.map = new google.maps.Map(canvas, mapOptions);
@@ -267,23 +267,23 @@ App.createMap = function(){
 
 
 //info window for markers displays infotmation image,name,discription,location
-App.addInfoWindowForPub = function(pub, marker) {
-  google.maps.event.addListener(marker, 'click', () => {
-    if (typeof this.infowindow !== 'undefined') this.infowindow.close();
-    this.infowindow = new google.maps.InfoWindow({
-      content: `
-      <div class="infowindow">
-      <img class="pubImage" src="${ pub.image }">
-      <h3> ${pub.name } </h3>
-      <p> ${ pub.description } </p>
-      <p> ${ pub.location } </p>
-      </div>`,
-      maxWidth: 300
-    });
-    this.infowindow.open(this.map, marker);
-    this.map.setCenter(marker.getPosition());
-  });
-};
+// App.addInfoWindowForPub = function(pub, marker) {
+//   google.maps.event.addListener(marker, 'click', () => {
+//     if (typeof this.infowindow !== 'undefined') this.infowindow.close();
+//     this.infowindow = new google.maps.InfoWindow({
+//       content: `
+//       <div class="infowindow">
+//       <img class="pubImage" src="${ pub.image }">
+//       <h3> ${pub.name } </h3>
+//       <p> ${ pub.description } </p>
+//       <p> ${ pub.location } </p>
+//       </div>`,
+//       maxWidth: 300
+//     });
+//     this.infowindow.open(this.map, marker);
+//     this.map.setCenter(marker.getPosition());
+//   });
+// };
 
 App.getCurrentLocation = function() {
   navigator.geolocation.getCurrentPosition(position => {
@@ -310,36 +310,36 @@ App.getCurrentLocation = function() {
   });
 
   //whats going on here?? calling stuff?
-  App.ajaxRequest('http://localhost:3000/api/pubs', 'GET');
+  // App.ajaxRequest('http://localhost:3000/api/pubs', 'GET');
 };
 
-App.loopThroughPubs = function(pubs) {
-  $.each(pubs.pubs, (index, pub) => {
-    setTimeout(() => {
-      App.createMarkerForPub(pub);
-    }, index * 200);
-  });
-};
-
-App.createMarkerForPub = function(pub) {
-  const latlng = new google.maps.LatLng(pub.lat, pub.lng);
-
-  const beerIcon = {
-    url: 'images/beer.png',
-    scaledSize: new google.maps.Size(40, 55),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(0, 0)
-  };
-
-  const marker = new google.maps.Marker({
-    position: latlng,
-    map: this.map,
-    animation: google.maps.Animation.DROP,
-    icon: beerIcon
-  });
-
-  this.addInfoWindowForPub(pub, marker);
-};
+// App.loopThroughPubs = function(pubs) {
+//   $.each(pubs.pubs, (index, pub) => {
+//     setTimeout(() => {
+//       App.createMarkerForPub(pub);
+//     }, index * 200);
+//   });
+// };
+//
+// App.createMarkerForPub = function(pub) {
+//   const latlng = new google.maps.LatLng(pub.lat, pub.lng);
+//
+//   const beerIcon = {
+//     url: 'images/beer.png',
+//     scaledSize: new google.maps.Size(40, 55),
+//     origin: new google.maps.Point(0, 0),
+//     anchor: new google.maps.Point(0, 0)
+//   };
+//
+//   const marker = new google.maps.Marker({
+//     position: latlng,
+//     map: this.map,
+//     animation: google.maps.Animation.DROP,
+//     icon: beerIcon
+//   });
+//
+//   this.addInfoWindowForPub(pub, marker);
+// };
 
 App.AutocompleteDirectionsHandler = function() {
   this.originPlaceId      = null;
@@ -390,7 +390,7 @@ App.route = function(e) {
     alert('Please fill in all fields!');
     return;
   }
-
+//----------------------------might be here for info
   App.getPubs(App.currentLocation.lat, App.currentLocation.lng, numberOfPubs, data => {
     var waypts = [];
 
@@ -417,8 +417,34 @@ App.route = function(e) {
   });
 };
 
-
-
+/////////////delete this after......
+// App.loopThroughPubs = function(pubs) {
+//   $.each(pubs.pubs, (index, pub) => {
+//     setTimeout(() => {
+//       App.createMarkerForPub(pub);
+//     }, index * 200);
+//   });
+// };
+//
+// App.createMarkerForPub = function(pub) {
+//   const latlng = new google.maps.LatLng(pub.lat, pub.lng);
+//
+//   const beerIcon = {
+//     url: 'images/beer.png',
+//     scaledSize: new google.maps.Size(40, 55),
+//     origin: new google.maps.Point(0, 0),
+//     anchor: new google.maps.Point(0, 0)
+//   };
+//
+//   const marker = new google.maps.Marker({
+//     position: latlng,
+//     map: this.map,
+//     animation: google.maps.Animation.DROP,
+//     icon: beerIcon
+//   });
+//
+//   this.addInfoWindowForPub(pub, marker);
+// };
 
 
 
