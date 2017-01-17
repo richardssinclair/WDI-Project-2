@@ -19,10 +19,6 @@ App.init = function() {
   }
 };
 
-App.getPubs = function(latitude, longitude, callback) {
-  return App.ajaxRequest(`http://localhost:3000/api/pubs?latitude=${latitude}&longitude=${longitude}`, 'GET', null, callback);
-};
-
 App.loggedInState = function(){
   $('.loggedIn').show();
   $('.loggedOut').hide();
@@ -349,9 +345,11 @@ App.AutocompleteDirectionsHandler = function() {
   this.originPlaceId      = null;
   this.destinationPlaceId = null;
   // Find the two autocomplete fields
+  this.calculateRoute     = document.getElementById('calculateRoute');
   this.originInput        = document.getElementById('origin-input');
   this.destinationInput   = document.getElementById('destination-input');
   this.numberOfPubsInput  = document.getElementById('number-of-pubs-input');
+  this.submitInput        = document.getElementById('submit-input');
   this.directionsService  = new google.maps.DirectionsService;
   this.directionsDisplay  = new google.maps.DirectionsRenderer;
 
@@ -369,6 +367,10 @@ App.AutocompleteDirectionsHandler = function() {
   this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.originInput);
   this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.destinationInput);
   this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.numberOfPubsInput);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.submitInput);
+
+  // Start routing when you click on the submit button.
+  this.submitInput.addEventListener('click', this.route.bind(this));
 };
 
 App.setupPlaceChangedListener = function(autocomplete, mode) {
@@ -385,15 +387,21 @@ App.setupPlaceChangedListener = function(autocomplete, mode) {
     } else {
       me.destinationPlaceId = place.place_id;
     }
-    me.route();
+    // me.route();
   });
+};
+
+App.getPubs = function(latitude, longitude, numberOfPubs, callback) {
+  return App.ajaxRequest(`http://localhost:3000/api/pubs?latitude=${latitude}&longitude=${longitude}&limit=${numberOfPubs}`, 'GET', null, callback);
 };
 
 App.route = function() {
   var me = this;
 
-  if (!me.originPlaceId || !me.destinationPlaceId) {
-    console.log('No originPlaceId & destinationPlaceId');
+  const numberOfPubs = this.numberOfPubsInput.value;
+
+  if (!me.originPlaceId || !me.destinationPlaceId || !numberOfPubs) {
+    alert('Please fill in all fields!');
     return;
   }
 
@@ -403,7 +411,7 @@ App.route = function() {
   //   console.log(data);
   // })
 
-  App.getPubs(App.currentLocation.lat, App.currentLocation.lng, data => {
+  App.getPubs(App.currentLocation.lat, App.currentLocation.lng, numberOfPubs, data => {
     var waypts = [];
 
     data.pubs.forEach(pub => {
