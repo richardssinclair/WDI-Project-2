@@ -201,26 +201,57 @@ const pubs = [{
   location: 'Soho Square',
   loc: [-0.133481,51.514893]
 },{
-  name: 'The Smoking Goat',
-  image: '...........',
-  description: '...........',
-  location: '...........',
-  loc: [-0.104963,51.533785]
+  name: 'The George',
+  image: 'http://www.fancyapint.com/media/pubimages/pic668.jpg',
+  description: 'busy...',
+  location: 'Wardour Street',
+  loc: [-0.135316,51.514910]
 },{
-  name: 'The Smoking Goat',
-  image: '...........',
-  description: '...........',
-  location: '...........',
-  loc: [-0.104963,51.533785]
+  name: 'Jazz Cafe Camden',
+  image: 'http://thejazzcafelondon.com/wp-content/uploads/2016/07/jazz-cafe-venue-shots-88-1200x799-optimised.jpg',
+  description: 'jazz cafe camden',
+  location: 'Camden',
+  loc: [-0.143111,51.538729]
 },{
-  name: 'The Smoking Goat',
-  image: '...........',
+  name: 'Blues Kitchen Camden',
+  image: 'https://www.fluidnetwork.co.uk/gfx/venues/20038/the-blues-kitchen-camden-live-music-bourbon-bar-3.jpg',
+  description: 'the thing that is in shoreditch but in camden',
+  location: 'Camden',
+  loc: [-0.141348,51.537032]
+},{
+  name: 'Be At One Camden',
+  image: 'https://static.designmynight.com/uploads/2016/01/camden2-1200x803-optimised.png',
+  description: 'looks nice..',
+  location: 'Camden',
+  loc: [-0.139910,51.535825]
+},{
+  name: 'Koko Camden',
+  image: 'https://www.guestlistspot.com/assets/images/photos/venues/main/371-koko-london-1408735525.jpg',
+  description: 'Massive venue.. ',
+  location: 'Camden',
+  loc: [-0.138286,51.534651]
+},{
+  name: 'The Lyttelton Arms',
+  image: 'https://c1.staticflickr.com/7/6127/6013615477_0609a95267_b.jpg',
+  description: 'pub pub pub',
+  location: 'Camden',
+  loc: [-0.139220,51.534536]
+},{
+  name: 'Night Jar',
+  image: 'https://www.barnightjar.com/sites/default/files/styles/flexslider_full/public/library%20lounge%20long.jpg',
+  description: 'one of the best',
+  location: 'Old Street',
+  loc: [-0.087803,51.526533]
+},{
+  name: 'Flight Club',
+  image: 'http://www.hot-dinners.com/images/stories/blog/2015/flightclub2.jpg',
   description: '...........',
-  location: '...........',
-  loc: [-0.104963,51.533785]
-}
+  location: 'Moorgate',
+  loc: [-0.086503,51.522078]
 }
 ];
+
+//40 pubs
 
 pubs.forEach((pub) => {
   Pub.create(pub, (err, pub) => {
