@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "gulp deploy"
   },
   "repository": {
     "type": "git",
