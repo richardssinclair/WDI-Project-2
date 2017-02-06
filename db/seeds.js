@@ -248,10 +248,16 @@ const pubs = [{
   description: '...........',
   location: 'Moorgate',
   loc: [-0.086503,51.522078]
+},{
+  name: 'Bar Kick',
+  image: 'https://www.cluboid.com/image/main/bc_clients?name=RNwfDnBD9H_5808bd498c425&type_id=130&ext=jpg',
+  description: 'Going There Tonight!',
+  location: 'Shoreditch',
+  loc: [-0.078207,51.526839]
 }
 ];
 
-//40 pubs
+//41 pubs
 
 pubs.forEach((pub) => {
   Pub.create(pub, (err, pub) => {
