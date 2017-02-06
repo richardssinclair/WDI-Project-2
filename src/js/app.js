@@ -4,7 +4,7 @@ const google = google;
 //makes the app, runs the functions in the authenticatons form
 App.init = function() {
   this.createMap();
-  this.apiUrl = 'http://localhost:3000/api';
+  this.apiUrl = `${window.location.origin}/api`;
   this.markersArray = [];
   $('.register').on('click', this.register.bind(this));
   $('.login').on('click', this.login.bind(this));
@@ -389,7 +389,7 @@ App.setupPlaceChangedListener = function(autocomplete) {
 };
 
 App.getPubs = function(latitude, longitude, numberOfPubs, callback) {
-  return App.ajaxRequest(`http://localhost:3000/api/pubs?latitude=${latitude}&longitude=${longitude}&limit=${numberOfPubs}`, 'GET', null, callback);
+  return App.ajaxRequest(`${window.location.origin}/api/pubs?latitude=${latitude}&longitude=${longitude}&limit=${numberOfPubs}`, 'GET', null, callback);
 };
 
 App.route = function(e) {
